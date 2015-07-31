@@ -3,7 +3,7 @@
 set -e
 
 case "$1" in
-    -h|--help|help)  cat /docker-entrypoint-help.txt >&2; exit 1 ;;
+    help|--help|-h)  man /docker-entrypoint.man; exit 1 ;;
     server)          ;;
     *)               exec "$@";;
 esac

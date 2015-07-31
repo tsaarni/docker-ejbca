@@ -1,0 +1,101 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "EJBCA" "" "August 2015" "" ""
+.
+.SH "NAME"
+\fBEJBCA\fR \- Docker container image
+.
+.SH "STARTING THE CONTAINER"
+Start the container and leave it running on a terminal window:
+.
+.IP "" 4
+.
+.nf
+
+docker run \-it \-p 8080:8080 \-p 8443:8443 \-\-name=myejbca ejbca server
+.
+.fi
+.
+.IP "" 0
+.
+.P
+A new container called "myejbca" will be started from image "ejbca"\. The container will remain running on foreground and it will print EJBCA debug log messages in realtime\.
+.
+.P
+Press CTRL+C to stop the container\. The container will not be removed automatically\. It can be restarted by running:
+.
+.IP "" 4
+.
+.nf
+
+docker start \-ai myejbca
+.
+.fi
+.
+.IP "" 0
+.
+.SH "WEB INTERFACE"
+Copy the admin credentials while the container is running and import it on your web browser\. The password for the \.p12 file is \fBejbca\fR:
+.
+.IP "" 4
+.
+.nf
+
+docker cp ejbca:/superadmin\.p12 \.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Web interface can be accessed by using following URIs:
+.
+.TP
+\fBhttps://[address]:8443/ejbca/\fR
+The TLS protected HTTPS address used to access the Admin GUI\. Requires client certificate (\fBsuperadmin\.p12\fR) for access\.
+.
+.TP
+\fBhttp://[address]:8080/ejbca/\fR
+The public HTTP address of application server, used for clients to access the public web for enrollment\.
+.
+.SH "COMMAND LINE INTERFACE"
+Define alias as a shortcut to run EJBCA CLI in the container:
+.
+.IP "" 4
+.
+.nf
+
+alias ejbca\.sh="docker exec \-it myejbca ejbca\.sh"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Use the commands according to EJBCA documentation while the container is running\. For example:
+.
+.IP "" 4
+.
+.nf
+
+# create or delete end\-entity
+ejbca\.sh ra addendentity \-\-username server123 \-\-dn "CN=server123" \-\-caname ManagementCA \-\-password mypassword \-\-type 1 \-\-token USERGENERATED
+ejbca\.sh ra delendentity \-\-username server123 \-force
+
+# print CA certificate
+ejbca\.sh ca getcacert \-\-caname ManagementCA \-f /dev/stdout
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fBNote\fR that the commands are executed inside the container\. Paths refer to filesystem of the container instead of the host\. If you need to move files between host and container you can use docker volumes to mount host path into the container (\fBdocker run \-v HOST_PATH:CONTAINER_PATH \.\.\.\fR)\. See documentation at https://docs\.docker\.com/\.
+.
+.SH "VOLUMES"
+.
+.TP
+\fB/root\fR
+Persistent data used by EJBCA
+

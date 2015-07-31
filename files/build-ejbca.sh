@@ -23,10 +23,7 @@ export ANT_ARGS="-inputhandler org.apache.tools.ant.input.PropertyFileInputHandl
 sed -i '/SecureInputHandler/d' bin/cli.xml
 
 ant deploy
-sleep 30   # give jboss some time to settle - just to be save
-
 ant install
-sleep 30   # give jboss some time to settle - just to be save
 
 # Link generated admin credentials to / for easier access 
 ln -s $EJBCA_HOME/p12/superadmin.p12 /

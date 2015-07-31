@@ -7,7 +7,7 @@
 using in *test environments* and for *experimentation*.  **Do not use
 for production!** The container will have *hardcoded credentials*.
 Therefore the container image *should not be uploaded* to public
-Docker Hub.  Build and **use in private environment only**.
+Docker Hub.  Build and **use in restricted environment only**.
 
 
 ## Building the container
@@ -21,7 +21,6 @@ Then download all dependencies
 
     wget http://downloads.sourceforge.net/project/ejbca/ejbca6/ejbca_6_3_1_1/ejbca_ce_6_3_1_1.zip
     wget http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz
-    wget http://apache.mirrors.spacedump.net/ant/binaries/apache-ant-1.9.6-bin.tar.gz
 
 Next re-package EJBCA source release from .zip to .tar.gz (Docker does
 not support .zip)
@@ -34,12 +33,16 @@ Finally build the container image
 
     docker build --tag ejbca .
 
+**Known problem**: Build fails randomly during `ant install`.
+Workaround: try build again.
+
 
 ## Using the container
 
-See [usage information](files/docker-entrypoint-help.txt).  Same text
-will be printed when running the container with `docker run [OPTIONS]
-IMAGE [COMMAND] [ARG...]` without providing command or by providing
-`--help` as the command.
+See [user manual](files/docker-entrypoint.md).
+
+User manual is also included inside container image.  It is printed
+when running the container with `docker run [OPTIONS] IMAGE [COMMAND]`
+without providing command or when providing `help` as the command.
 
 
