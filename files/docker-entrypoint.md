@@ -22,7 +22,7 @@ automatically.  It can be restarted by running:
 Copy the admin credentials while the container is running and import
 it on your web browser.  The password for the .p12 file is `ejbca`:
 
-    docker cp ejbca:/superadmin.p12 .
+    docker cp -L myejbca:/superadmin.p12 .
 
 Web interface can be accessed by using following URIs:
 
