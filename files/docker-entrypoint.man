@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "EJBCA" "" "August 2015" "" ""
+.TH "EJBCA" "" "2016-10-02" "" ""
 .
 .SH "NAME"
 \fBEJBCA\fR \- Docker container image
@@ -42,7 +42,7 @@ Copy the admin credentials while the container is running and import it on your 
 .
 .nf
 
-docker cp ejbca:/superadmin\.p12 \.
+docker cp \-L myejbca:/superadmin\.p12 \.
 .
 .fi
 .
